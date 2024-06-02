@@ -42,7 +42,11 @@ app.get('/posts/:id', (req, res) => {
   if (id >= 0 && id < posts.length) {
     res.send(posts[id]);
   } else {
-    res.status(404).send('Post not found');
+    res.status(404).render('postNotFound.ejs');
   }
+});
+// Catch-all route for unmatched paths
+app.get('*', (req, res) => {
+  res.status(404).render('page404.ejs'); // Render the "page not found" template with a 404 status code
 });
 app.listen(port, ()=>console.log(`server runing port ${port}`));
