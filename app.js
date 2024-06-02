@@ -1,6 +1,8 @@
 import express from 'express';
 import ejs from 'ejs';
+import path from 'path';
 
+// app.use(express.static('public'));
 const app = express();
 const port = 3000;
 
@@ -16,6 +18,12 @@ const posts = [
   },
 ];
 
+// Set EJS as the templating engine
+// app.engine('ejs', ejs.renderFile);
+
+// Serve static files from 'public' directory (optional for additional resources)
+app.use(express.static('public'));
+app.set('views', path.join(__dirname, 'views'));
 app.get('/', (req, res) => {
    ejs.renderFile('./views/index.ejs', {posts}, (err, html)=>{
     if(err){
