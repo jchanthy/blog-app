@@ -17,7 +17,9 @@ const posts = [
     content: 'This is the content of the second sample blog post.',
   },
 ];
-
+const users = [
+  { username: 'admin', password: 'password123' },
+];
 // Set EJS as the templating engine
 // app.engine('ejs', ejs.renderFile);
 
@@ -45,6 +47,19 @@ app.get('/posts/:id', (req, res) => {
     res.status(404).render('postNotFound.ejs');
   }
 });
+
+
+// Login route
+app.get('/login', (req, res) => { res.render('login.ejs')});
+app.post('/login', (req, res) => {res.redirect('/dashboard')});
+ 
+// Dashboard route (protected)
+app.get('/dashboard', (req, res) => {
+res.render('dashboard.ejs');
+});
+
+app.get('/logout', (req, res)=>{res.redirect('/login')});
+
 // Catch-all route for unmatched paths
 app.get('*', (req, res) => {
   res.status(404).render('page404.ejs'); // Render the "page not found" template with a 404 status code
